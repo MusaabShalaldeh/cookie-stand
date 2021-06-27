@@ -55,12 +55,19 @@ function PrintOutInformation(object)
 
     header.textContent = object.locationName+':';
 
-
+    let total = 0;
+    
     for (let i = 0; i < workHours.length; i++) {
         let listItem = document.createElement("li");
-        listItem.textContent = workHours[i] + getRandomIntInclusive(object.minCust, object.maxCust);
+        let randomValue = getRandomIntInclusive(object.minCust, object.maxCust);
+        total += randomValue;
+        listItem.textContent = workHours[i] + randomValue;
         unorderedList.appendChild(listItem);
     }
+
+    let listItem = document.createElement("li");
+    listItem.textContent = "Total: "+total;
+    unorderedList.appendChild(listItem);
 }
 
 
