@@ -84,3 +84,8 @@ footer
     padding: 25px;
     margin-top: 7%;
 }
+/* for tables */
+
+table, th, td {
+    border: 1px solid black;
+}
