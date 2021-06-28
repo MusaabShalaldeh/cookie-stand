@@ -59,7 +59,7 @@ function PrintOutInformation(object)
     
     for (let i = 0; i < workHours.length; i++) {
         let listItem = document.createElement("li");
-        let randomValue = getRandomIntInclusive(object.minCust, object.maxCust);
+        let randomValue = Math.round(randomNum(object.minCust, object.maxCust) * object.avgSales);
         total += randomValue;
         listItem.textContent = workHours[i] + randomValue;
         unorderedList.appendChild(listItem);
@@ -86,4 +86,9 @@ function getRandomIntInclusive(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
   }
+
+  function randomNum(min,max){
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
 //-------------------------------------------
+
