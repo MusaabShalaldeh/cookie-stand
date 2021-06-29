@@ -78,11 +78,56 @@ main h3{
     margin-right: 900px; 
 
 }
+
+
+#NewProductsList
+{
+    float: left;
+}
+#NewProductsList li
+{
+    text-align: left;
+    display: inline-block;
+}
+#NewProductsList li div
+{
+    margin: 70px;
+    padding: 15px;
+}
+
+
+#familySection h2{
+    font-size: larger;
+
+}
+
+#familySection img{
+    margin: 15px;
+    padding: 15px;
+}
+
+#familySection button{
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    /*text-decoration: none;*/
+    display: inline-block;
+    font-size: 16px;
+    background-color: #865439;
+}
+
+
 footer
 {
+    clear: both;
     background-color: #865439;
     padding: 25px;
     margin-top: 7%;
+}
+footer ul li{
+    margin: 5px;
+    padding: 2px;
+    font-size: larger;
 }
 /* for tables */
 
