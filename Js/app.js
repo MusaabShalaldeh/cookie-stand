@@ -10,6 +10,9 @@ let hourlyTotal = [];
 
 let totalOfTotals = 0;
 
+const lastRowId = "lastRowName";
+const mainTableID = "mainTable";
+
 function ShopLocation(locationName, minCust, maxCust, avgSales) {
     this.locationName = locationName;
     this.minCust = minCust;
@@ -20,15 +23,6 @@ function ShopLocation(locationName, minCust, maxCust, avgSales) {
 
     locations.push(this);
 }
-
-let Seattle = new ShopLocation('Seattle', 25, 65, 6.3);
-let Tokyo = new ShopLocation('Tokyo', 3, 24, 1.2);
-let Dubai = new ShopLocation('Dubai', 11, 38, 3.7);
-let Paris = new ShopLocation('Paris', 20, 38, 2.3);
-let Lima = new ShopLocation('Lima', 2, 16, 4.6);
-
-
-
 
 
 ShopLocation.prototype.renderToTable = function (table) {
@@ -58,24 +52,11 @@ ShopLocation.prototype.renderToTable = function (table) {
     lastElement.textContent = totalForToday;
 }
 
-function calculateHourlyTotal()
-{
-    totalOfTotals = 0;
-
-    for (let i = 0; i < workHours.length; i++) {
-
-        let sumForThisInstace = 0;
-
-        for (let _i = 0; _i < locations.length; _i++) {
-
-            sumForThisInstace += locations[_i].sales[i];
-        }
-
-        hourlyTotal.push(sumForThisInstace);
-
-        totalOfTotals += sumForThisInstace;
-    }
-}
+let Seattle = new ShopLocation('Seattle', 25, 65, 6.3);
+let Tokyo = new ShopLocation('Tokyo', 3, 24, 1.2);
+let Dubai = new ShopLocation('Dubai', 11, 38, 3.7);
+let Paris = new ShopLocation('Paris', 20, 38, 2.3);
+let Lima = new ShopLocation('Lima', 2, 16, 4.6);
 
 
 
@@ -83,6 +64,7 @@ function calculateHourlyTotal()
 function makeATable() {
     let parent = document.getElementById("InfoContainer");
     let table = document.createElement('table');
+    table.setAttribute('id', mainTableID);
     parent.appendChild(table);
 
     //create top row
@@ -104,19 +86,20 @@ function makeATable() {
     hoursRow.appendChild(totalDaily);
     totalDaily.textContent = 'Daily Location Total:';
     //-----------------------------------------------
-    Seattle.renderToTable(table);
-    Tokyo.renderToTable(table);
-    Dubai.renderToTable(table);
-    Paris.renderToTable(table);
-    Lima.renderToTable(table);
+    for (let i = 0; i < locations.length; i++) {
+        locations[i].renderToTable(table);
+    }
 
-    
+    makeButtomRow(table);
 
-    //create bottom row
+}
 
+function makeButtomRow(table)
+{
     calculateHourlyTotal();
 
     let totalsRow = document.createElement('tr');
+    totalsRow.setAttribute('id', lastRowId);
     table.appendChild(totalsRow);
 
     let totalForEachHour = document.createElement('th');
@@ -133,10 +116,81 @@ function makeATable() {
     let endTotal = document.createElement('td');
     totalsRow.appendChild(endTotal);
     endTotal.textContent = 'Total: '+totalOfTotals;
-
-    //-----------------------------------------------
 }
 
+function calculateHourlyTotal()
+{
+    totalOfTotals = 0;
+
+    for (let i = 0; i < workHours.length; i++) {
+
+        let sumForThisInstace = 0;
+
+        for (let _i = 0; _i < locations.length; _i++) {
+
+            sumForThisInstace += locations[_i].sales[i];
+        }
+
+        hourlyTotal.push(sumForThisInstace);
+
+        totalOfTotals += sumForThisInstace;
+    }
+}
+
+
+const locationForm = document.getElementById('locationFormContainer');
+locationForm.addEventListener('submit',addNewLocationRow);
+
+function addNewLocationRow(event)
+{
+    event.preventDefault();
+
+    const locName = event.target.locationName.value;
+    const minCust = parseInt(event.target.minCust.value);
+    const maxCust = parseInt(event.target.maxCust.value);
+    const avgSales = parseFloat(event.target.avgSales.value);
+
+    //safety checks.
+
+    //check if minimum customers number is more than max customers number
+    if(minCust > maxCust)
+    {
+        alert("YOU CAN'T HAVE THE MINIMUM CUSTOMERS NUMBER MORE THAN THE MAXIMUM CUSTOMERS NUMBER!");
+        return;
+    }
+    //check if name exists
+    else if(checkIfNameExists(locName))
+    {
+        alert("THIS LOCATION ALREADY EXISTS!");
+        return;
+    }
+
+    //remove bottom row
+    document.getElementById(lastRowId).remove();
+
+    
+
+    const newShop = new ShopLocation(locName,minCust,maxCust,avgSales);
+    newShop.renderToTable(document.getElementById(mainTableID));
+
+
+    //generate new totals row using previous data + new data
+
+    makeButtomRow(document.getElementById(mainTableID));
+}
+
+
+
+
+function checkIfNameExists(name)
+{
+    for (let i = 0; i < locations.length; i++) {
+        if(name == locations[i].locationName)
+        {
+            return true;
+        }
+    }
+}
 
 makeATable();
 

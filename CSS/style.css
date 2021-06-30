@@ -48,7 +48,7 @@ main{
     text-align-last: center;
 }
 main section{
-    margin: 5%;
+    margin: 2%;
 }
 main ul{
     list-style: circle;
@@ -73,13 +73,58 @@ main h3{
     padding: 2%;
 }
 
+#InfoContainer
+{
+    position: relative;
+    float:left;
+    width: 55%;
+    margin-top: 128px;
+}
 #InfoContainer div{
     padding: 5%;
-    margin-right: 900px; 
+}
+/* form stuff */
+#newLocationHolder
+{
+    float:right;
+    display: block;
+    width: 25%;
+    height: 15%;
+    margin: 0px 75px;
+    margin-right: 10%;
+    padding: 75px;
+    top: 250px;
+}
 
+#newLocationHolder form
+{
+    display: block;
+    margin: 25px;
+}
+#newLocationHolder form label,input
+{
+    display: block;
+    margin: 25px;
+}
+#submitButton
+{
+    /* margin: 25px; */
+    /* margin-right:256px; */
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    background-color: #865439;
+}
+fieldset
+{
+    border-color: #865439;
+    border-style: solid;
 }
 
 
+/* main page specific */
 #NewProductsList
 {
     float: left;
@@ -116,7 +161,7 @@ main h3{
     background-color: #865439;
 }
 
-
+/* footer */
 footer
 {
     clear: both;

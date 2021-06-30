@@ -34,11 +34,31 @@
         <section id="InfoContainer">
 
         </section>
+        <div id="newLocationHolder">
+            <h2>Add New Location: </h2>
+            <form id="locationFormContainer">
+            <fieldset>
+                <label for="locationName">Shop Location: </label>
+                <input type="text" id="locationName", name="Please a country name, don't leave this space empty." required>
+
+                <label for="minCust">Minimum Customers: </label>
+                <input type="number" id="minCust" required >
+
+                <label for="maxCust">Maximum Customers: </label>
+                <input type="number" id="maxCust" required>
+
+                <label for="avgSales">Average Sales: </label>
+                <input type="number" id="avgSales" step=".01" min="1" max="999" required>
+
+                <input type="submit" id="submitButton">
+            </fieldset>
+            </form>
+        </div>
     </main>
     <footer>
         <ul>
             <li>Address: Seattle, Tokoyo, Dubai, Paris, Lima and soon more.</li>
-            <li>Daily 6:00 a.m. – 7:00 p.m.</li>
+            <li>Open Daily 6:00 a.m. – 7:00 p.m.</li>
             <li>Tel. No.: 2217-7012</li>
         </ul>
         <br>
